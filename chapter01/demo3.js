@@ -15,32 +15,58 @@
 // 输出：[-1,-1]
 
 // 暴力算法
-function getIndex(nums, target) {
-    let i = j = -1;
-    for (let k = 0; k < nums.length; k++) {
-        if(target === nums[k]) {
-            i === -1 ? i = j = k : j = k;
-        }
-    }
-    // 没找到返回
-    return [i,j];
-}
+// function getIndex(nums, target) {
+//     let i = j = -1;
+//     for (let k = 0; k < nums.length; k++) {
+//         if(target === nums[k]) {
+//             i === -1 ? i = j = k : j = k;
+//         }
+//     }
+//     // 没找到返回
+//     return [i,j];
+// }
 
 // 有序的 试试用二分查找
 
 function getIndex(nums, target) {
     // 获取右边界的值
-    let rightIndex = getRightIndex(nums, target)
+    let rightIndex = getRightIndex(nums, target);
     // 获取左边界的值
-    let leftIndex = getLeftIndex(nums, target)
+    let leftIndex = getLeftIndex(nums, target);
 
     return [leftIndex, rightIndex]
 }
 function getRightIndex(nums, target) {
-
+    // 只有当前target 小于 middle值的时候 才会更新right值
+    let left = 0,right = nums.length - 1, middle = 0;
+    // 定义边界值
+    let border = -1;
+    while (left <= right) {
+        middle = Math.floor((left + right)/2);
+        if(target < nums[middle]) {
+            right = border = middle - 1;
+        }
+        else {
+            left = middle + 1;
+        }
+        return border;
+    }
 }
 function getLeftIndex(nums, target) {
-
+    // 只有当前target 大于 middle值的时候 才会更新left值
+    let left = 0,right = nums.length - 1, middle = 0;
+    // 定义边界值
+    let border = -1;
+    while (left <= right) {
+        middle = Math.floor((left + right)/2);
+        if(target > nums[middle]) {
+            left = border = middle + 1;
+        }
+        else {
+            right = middle - 1;
+        }
+        return border;
+    }
 }
 
 console.log(getIndex([5,7,7,8,8,10], 8))

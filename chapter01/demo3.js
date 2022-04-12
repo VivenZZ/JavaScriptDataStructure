@@ -15,16 +15,16 @@
 // 输出：[-1,-1]
 
 // 暴力算法
-// function getIndex(nums, target) {
-//     let i = j = -1;
-//     for (let k = 0; k < nums.length; k++) {
-//         if(target === nums[k]) {
-//             i === -1 ? i = j = k : j = k;
-//         }
-//     }
-//     // 没找到返回
-//     return [i,j];
-// }
+function getIndex(nums, target) {
+    let i = j = -1;
+    for (let k = 0; k < nums.length; k++) {
+        if(target === nums[k]) {
+            i === -1 ? i = j = k : j = k;
+        }
+    }
+    // 没找到返回
+    return [i,j];
+}
 
 // 有序的 试试用二分查找
 
@@ -34,6 +34,14 @@ function getIndex(nums, target) {
     // 获取左边界的值
     let leftIndex = getLeftIndex(nums, target);
 
+    // 产生边界情况
+    if(rightIndex !== -1 && leftIndex === -1) leftIndex = rightIndex
+    if(leftIndex !== -1 && rightIndex === -1) rightIndex = leftIndex
+    if(leftIndex > rightIndex) leftIndex = rightIndex = -1
+    if(nums[nums.length -1] === target &&  nums[0] === target) {
+        leftIndex = 0
+        rightIndex = nums.length - 1
+    }
     return [leftIndex, rightIndex]
 }
 function getRightIndex(nums, target) {
@@ -43,14 +51,15 @@ function getRightIndex(nums, target) {
     let border = -1;
     while (left <= right) {
         middle = Math.floor((left + right)/2);
-        if(target < nums[middle]) {
-            right = border = middle - 1;
-        }
-        else {
+        if(target >= nums[middle]) {
+            // 目标值大于等于中间值，则将左标记 移到 middle+1
             left = middle + 1;
+        } else {
+            // 目标值小于中间值，则确定了右边标记
+            border = right = middle -1;
         }
-        return border;
     }
+    return border;
 }
 function getLeftIndex(nums, target) {
     // 只有当前target 大于 middle值的时候 才会更新left值
@@ -59,16 +68,20 @@ function getLeftIndex(nums, target) {
     let border = -1;
     while (left <= right) {
         middle = Math.floor((left + right)/2);
-        if(target > nums[middle]) {
-            left = border = middle + 1;
-        }
-        else {
+        if(target <= nums[middle]) {
+            // 目标值小于等于中间值，则将右标记 移到 middle-1
             right = middle - 1;
+        } else {
+            // 目标值大于中间值，则确定了左边标记
+           border =  left = middle + 1;
+
         }
-        return border;
+        
     }
+    return border;
 }
 
 console.log(getIndex([5,7,7,8,8,10], 8))
-console.log(getIndex([5,7,7,8,8,10], 10))
+console.log(getIndex([5,7,7,8,8,10], 9))
+console.log(getIndex([5,7,7,8,8,10], 5))
 console.log(getIndex([5,7,7,8,8,10], 0))

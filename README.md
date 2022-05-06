@@ -9,6 +9,7 @@ JavaScript数据结构与算法
 - [demo3](./chapter01/demo3.js):给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
 
 ### 移除元素
+<<<<<<< HEAD
 - [demo1](./chapter02/demo1.js): 移除元素
 
 ### 有序数组的平方
@@ -16,3 +17,9 @@ JavaScript数据结构与算法
 
 ### 长度最小的子数组
 - [demo2](./chapter02/demo3.js): 长度最小的子数组
+=======
+- [demo4](./chapter01/demo4.js): 移除元素
+
+### 数组的平方
+- [demo4](./chapter01/demo5.js): 数组的平方
+>>>>>>> 419e11c77931cf15567d912e135836baeaa826f1

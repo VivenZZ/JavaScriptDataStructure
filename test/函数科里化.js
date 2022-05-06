@@ -19,14 +19,12 @@ function pl(x) {
 
 // 科里化累乘
     let sum = 1
-function plx(...args) {
-    if(args[0]) {
-        console.log('args[0]', args[0]);
-        sum*=args[0]
+function plx(nums) {
+    if(nums) {
+        sum*=nums
         return plx
     } else {
-        console.log('args[1]', args[0]);
         return sum
     }
 }
-console.log(plx(2)(3)());
+console.log(plx(2)(9)(9)(9)(9)());
